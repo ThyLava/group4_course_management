@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean insert(Student student) {
-        return false;
+        return studentRepository.insert(student);
     }
 
     @Override

@@ -3,11 +3,10 @@ package entity;
 public class Student {
     private int id;
     private String full_name;
-    private int phone;
-
+    private long phone;
     public Student(){};
 
-    public Student(int id, String full_name, int phone) {
+    public Student(int id, String full_name, long phone) {
         this.id = id;
         this.full_name = full_name;
         this.phone = phone;
@@ -29,11 +28,11 @@ public class Student {
         this.full_name = full_name;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

@@ -3,6 +3,7 @@ package repository.impl;
 import entity.Student;
 import repository.StudentRepository;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                 Student student = new Student();
                 student.setId(resultSet.getInt("id"));
                 student.setFull_name(resultSet.getString("full_name"));
-                student.setPhone(resultSet.getInt("phone"));
+                student.setPhone(resultSet.getLong("phone"));
                 studentList.add(student);
 
             }
@@ -49,6 +50,26 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public boolean insert(Student student) {
+        String insertSql = "INSERT INTO students " + "(full_name) ,(phone)"+ "VALUES (?),(?)";
+        try {
+            connection = DatabaseConnection.init();
+            preparedStatement = connection.prepareStatement(insertSql);
+            preparedStatement.setString(1, student.getFull_name());
+            preparedStatement.setInt(2, (int) student.getPhone());
+            if(preparedStatement.executeUpdate() != 0){
+                return  true;
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+                preparedStatement.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 
